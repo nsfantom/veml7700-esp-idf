@@ -34,6 +34,7 @@
 #define VEML7700_ALS_DATA 0x04          /*!< The light data output */
 #define VEML7700_WHITE_DATA 0x05        /*!< The white light data output */
 #define VEML7700_INTERRUPTSTATUS 0x06   /*!< What IRQ (if any) */
+#define VEML7700_ID 0x07		/*!< Device ID */
 
 #define VEML7700_INTERRUPT_HIGH 0x4000  /*!< Interrupt status for high threshold */
 #define VEML7700_INTERRUPT_LOW 0x8000   /*!< Interrupt status for low threshold */
@@ -73,8 +74,8 @@
 static const uint8_t gain_values[VEML7700_GAIN_OPTIONS_COUNT] = {
     VEML7700_GAIN_2,
     VEML7700_GAIN_1,
-    VEML7700_GAIN_1_8,
-    VEML7700_GAIN_1_4
+    VEML7700_GAIN_1_4,
+    VEML7700_GAIN_1_8
 };
 /**
  * @brief List of all possible values for configuring sensor integration time.
@@ -97,12 +98,12 @@ static const uint8_t integration_time_values[VEML7700_IT_OPTIONS_COUNT] = {
  * @link https://www.vishay.com/docs/84323/designingveml7700.pdf
  */
 static const float resolution_map[VEML7700_IT_OPTIONS_COUNT][VEML7700_GAIN_OPTIONS_COUNT] = {
-    {0.0036, 0.0072, 0.0288, 0.0576},
-    {0.0072, 0.0144, 0.0576, 0.1152},
-    {0.0144, 0.0288, 0.1152, 0.2304},
-    {0.0288, 0.0576, 0.2304, 0.4608},
-    {0.0576, 0.1152, 0.4608, 0.9216},
-    {9.1152, 0.2304, 0.9216, 1.8432}
+    {0.0042, 0.0084, 0.0336, 0.0672},
+    {0.0084, 0.0168, 0.0672, 0.1344},
+    {0.0168, 0.0336, 0.1344, 0.2688},
+    {0.0336, 0.0672, 0.2688, 0.5376},
+    {0.0672, 0.1344, 0.5376, 1.0752},
+    {0.1344, 0.2688, 1.0752, 2.1504}
 };
 /**
  * @brief Maximum luminocity mapped to gain-integration time combination.
@@ -112,12 +113,12 @@ static const float resolution_map[VEML7700_IT_OPTIONS_COUNT][VEML7700_GAIN_OPTIO
  * @link https://www.vishay.com/docs/84323/designingveml7700.pdf
  */
 static const uint32_t maximums_map[VEML7700_IT_OPTIONS_COUNT][VEML7700_GAIN_OPTIONS_COUNT] = {
-    {236, 472, 1887, 3775},
-    {472, 944, 3775, 7550},
-    {944, 1887, 7550, 15099},
-    {1887, 3775, 15099, 30199},
-    {3775, 7550, 30199, 60398},
-    {7550, 15099, 60398, 120796}
+    {275, 550, 2202, 4404},
+    {550, 1101, 4404, 8808},
+    {1101, 2202, 8808, 17616},
+    {2202, 4404, 17616, 35232},
+    {4404, 8808, 35232, 70463},
+    {8808, 17616, 70463, 140926}
 };
 
 /**
